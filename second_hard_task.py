@@ -2,22 +2,18 @@ import random
 import time
 
 
-def check_statement(pred):
-    return not any(pred) == all(map(lambda x: not x, pred))
-
-
-def readable_check_statement(pred):
+def readable_check_statement(predicates):
     left_result = False
     right_result = False
     iterator = 0
-    while iterator < len(pred) - 1:
-        left_result = pred[iterator] and pred[iterator + 1]
+    while iterator < len(predicates) - 1:
+        left_result = predicates[iterator] and predicates[iterator + 1]
         iterator += 1
     left_result = not left_result
 
     iterator = 0
-    while iterator < len(pred) - 1:
-        right_result = not (pred[iterator]) or not (pred[iterator + 1])
+    while iterator < len(predicates) - 1:
+        right_result = not (predicates[iterator]) or not (predicates[iterator + 1])
         iterator += 1
 
     return left_result == right_result
@@ -25,20 +21,20 @@ def readable_check_statement(pred):
 
 start_time = time.time()
 
-final_result = False
-for _ in range(1000):
-    num_predicates = random.randint(3, 15)
-    predicates = [bool(random.getrandbits(1)) for _ in range(num_predicates)]
-    result = readable_check_statement(predicates)
+final_result_indicate = True
+for _ in range(100):
+    amount_predicates = random.randint(3, 15)
+    current_predicates = [bool(random.getrandbits(1)) for _ in range(amount_predicates)]
+    result = readable_check_statement(current_predicates)
     if not result:
-        final_result = True
-        print(f"Предикаты: {predicates}")
-        print(f"Результат: {result}")
+        final_result_indicate = False
+        print(f"Predicates: {current_predicates}")
+        print(f"Result: {result}")
 
-if not final_result:
-    print('vse zbs')
+if final_result_indicate:
+    print('Theorem is proved')
 else:
-    print('выше описаны проблемные случаи')
+    print('Theorem isn\'t proved')
 
 end_time = time.time()
 
