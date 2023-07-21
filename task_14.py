@@ -3,8 +3,4 @@
 n = int(input('Enter your power of two: '))
 
 for i in range(1, n + 1):
-    current_power = 1
-    for j in range(1, i + 1):
-        current_power *= 2
-    print(current_power)
-
+    print(2**i)
